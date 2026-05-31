@@ -1,0 +1,26 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ProductCard from "../components/ProductCard.astro";
+import { products } from "../data/products";
+---
+
+<Layout title="Beranda">
+  <section class="bg-gradient-to-br from-primary-wash to-primary-lightest py-14 px-8 text-center lg:py-20">
+    <div class="max-w-6xl mx-auto">
+      <h1 class="text-4xl lg:text-5xl font-bold text-primary-dark mb-3">
+        Koleksi Hijab <span class="text-primary">Terbaru</span>
+      </h1>
+      <p class="text-base text-gray-600 max-w-md mx-auto leading-relaxed">
+        Temukan hijab favoritmu dengan bahan premium dan harga terjangkau.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-12 px-8 pb-16">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {products.map((product) => <ProductCard product={product} />)}
+      </div>
+    </div>
+  </section>
+</Layout>

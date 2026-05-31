@@ -1,0 +1,22 @@
+---
+import type { Product } from "../data/products";
+
+export interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+---
+
+<a
+  class="bg-white rounded-xl overflow-hidden shadow-sm hover:-translate-y-1 hover:shadow-lg hover:border-primary-light transition-all duration-250 no-underline text-inherit flex flex-col border border-gray-100"
+  href={`/produk/${product.slug}`}
+>
+  <div class="w-full aspect-square bg-primary-wash flex items-center justify-center overflow-hidden">
+    <img src={product.gambar} alt={product.nama} loading="lazy" class="w-full h-full object-cover" />
+  </div>
+  <div class="px-5 pb-5 pt-4">
+    <div class="text-base font-semibold text-gray-900 mb-1.5 leading-tight">{product.nama}</div>
+    <div class="text-lg font-bold text-primary">Rp{product.harga.toLocaleString("id-ID")}</div>
+  </div>
+</a>

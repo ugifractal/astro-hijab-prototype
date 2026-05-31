@@ -1,0 +1,60 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { products } from "../../data/products";
+import type { Product } from "../../data/products";
+
+export function getStaticPaths() {
+  return products.map((product) => ({
+    params: { slug: product.slug },
+    props: { product },
+  }));
+}
+
+interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+
+const waText = encodeURIComponent(
+  `Halo Sg Art Shop, saya ingin membeli:\n*${product.nama}*\nHarga: Rp${product.harga.toLocaleString("id-ID")}\n\nMohon info ketersediaan dan cara pemesanan.`
+);
+const waUrl = `https://wa.me/6285295033162?text=${waText}`;
+---
+
+<Layout title={product.nama}>
+  <section class="p-8">
+    <div class="max-w-4xl mx-auto">
+      <a href="/" class="inline-block text-primary no-underline text-sm font-medium mb-6 hover:text-primary-dark transition">&larr; Kembali ke Beranda</a>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-primary-wash rounded-xl overflow-hidden aspect-square">
+          <img src={product.gambar} alt={product.nama} class="w-full h-full object-cover" />
+        </div>
+
+        <div class="flex flex-col">
+          <h1 class="text-3xl font-bold text-gray-900 mb-3">{product.nama}</h1>
+          <div class="text-2xl font-bold text-primary mb-6">Rp{product.harga.toLocaleString("id-ID")}</div>
+
+          <div class="flex gap-6 mb-6 flex-wrap">
+            <div class="flex flex-col gap-1">
+              <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">Bahan</span>
+              <span class="text-sm font-semibold text-gray-700">{product.bahan}</span>
+            </div>
+            <div class="flex flex-col gap-1">
+              <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">Warna</span>
+              <span class="text-sm font-semibold text-gray-700">{product.warna}</span>
+            </div>
+          </div>
+
+          <p class="text-sm text-gray-600 leading-relaxed mb-8">{product.deskripsi}</p>
+
+          <a href={waUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2.5 bg-primary text-white px-8 py-3.5 text-base font-semibold rounded-xl no-underline transition-all w-fit hover:bg-primary-medium hover:-translate-y-0.5 active:translate-y-0">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            Beli
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
